@@ -1,4 +1,5 @@
 const yargs = require('yargs');
+const dotenv = require('dotenv').config();
 const geocode = require('./client/geocodeAPI');
 const forecast = require('./client/weatherAPI');
 
@@ -15,8 +16,6 @@ const argv = yargs
 .argv;
 
 geocode.geocodeAddress(argv.a)
-  .then(coordinates => {
-    return forecast.getWeather(coordinates);
-  })
-  .then(result => console.log(result))
-  .catch(e => console.error(e));
+  .then(location => forecast.getWeather(location))
+  .then(response => console.log(response))
+  .catch(error => console.log(error));

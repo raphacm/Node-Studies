@@ -14,17 +14,9 @@ const argv = yargs
 .help('help', 'Show help')
 .argv;
 
-geocode.geocodeAddress(argv.address, (error, response) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(response.address);
-    forecast.getWeather(response.latitude, response.longitude, (error, response) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(JSON.stringify(response, undefined, 2));
-      }
-    });
-  }
-});
+geocode.geocodeAddress(argv.a)
+  .then(coordinates => {
+    return forecast.getWeather(coordinates);
+  })
+  .then(result => console.log(result))
+  .catch(e => console.error(e));

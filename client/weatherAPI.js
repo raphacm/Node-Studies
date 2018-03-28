@@ -21,7 +21,7 @@ const getWeather = (coordinates) => {
       } else {
         console.log({error_detail: error})
       }
-    });;
+    });
 }
 
 module.exports = {
